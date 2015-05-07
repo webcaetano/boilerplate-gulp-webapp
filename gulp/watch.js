@@ -17,11 +17,13 @@ module.exports = function(options) {
 		});
 
 		gulp.watch([
-			options.src + '/{app,components}/**/*.acss',
-			options.src + '/{app,components}/**/*.scss'
+			options.src + '/{sass,components}/**/*.acss',
+			options.src + '/{sass,components}/**/*.scss'
 		], function(event) {
 			if(isOnlyChange(event)) {
-				gulp.start('styles');
+				gulp.start('styles',function(){
+					browserSync.reload();
+				});
 			} else {
 				gulp.start('inject');
 			}
@@ -29,7 +31,6 @@ module.exports = function(options) {
 
 
 		gulp.watch(options.src + '/{app,components}/**/*.html', function(event) {
-			console.log('xxxxyyy')
 			browserSync.reload(event.path);
 		});
 	});
