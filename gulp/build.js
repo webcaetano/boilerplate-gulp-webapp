@@ -16,7 +16,7 @@ module.exports = function(options) {
 		return gulp.src(options.tmp + '/serve/*.html')
 			.pipe(assets = $.useref.assets())
 			.pipe($.rev())
-			.pipe($.if('*.js', $.ngAnnotate()))
+			// .pipe($.if('*.js', $.ngAnnotate()))
 			.pipe($.if('*.js', $.uglify()))
 			.pipe($.replace('../../bower_components/font-awesome-less/fonts/', '../fonts/'))
 			.pipe($.if('*.css', $.csso()))
