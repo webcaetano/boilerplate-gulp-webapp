@@ -2,11 +2,9 @@
 
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
-var browserSyncSpa = require('browser-sync-spa');
-
 var util = require('util');
-
-var middleware = require('./proxy');
+var cp = require('child_process');
+var server;
 
 module.exports = function(options) {
 
@@ -20,32 +18,32 @@ module.exports = function(options) {
 			};
 		}
 
-		var server = {
-			baseDir: baseDir,
-			routes: routes
-		};
-
-		if(middleware.length > 0) {
-			server.middleware = middleware;
-		}
-
 		browserSync.instance = browserSync.init({
 			startPath: '/',
-			server: server,
 			browser: browser,
-			open:false
+			open:false,
+			logPrefix: 'RSK',
+			notify: false,
+			https: false,
+			port:3000,
+			proxy: 'localhost:4000'
 		});
 	}
-
-	browserSync.use(browserSyncSpa({
-		selector: '[ng-app]'// Only needed for angular apps
-	}));
 
 	gulp.task('serve', ['watch'], function () {
 		browserSyncInit([options.tmp + '/serve', options.src]);
 	});
 
 	gulp.task('serve:dist', ['build'], function () {
-		browserSyncInit(options.dist);
+		var env = Object.create( process.env );
+		env.NODE_ENV = 'dist';
+
+		var child = cp.fork('dist/node/index.js',{env: env});
+		child.once('message', function (message) {
+			if (message.match(/^online$/))browserSyncInit(options.dist);
+		});
+		process.on('exit', function () {
+			return child.kill('SIGTERM');
+		});
 	});
 };

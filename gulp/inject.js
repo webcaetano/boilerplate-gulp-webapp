@@ -9,8 +9,8 @@ var wiredep = require('wiredep').stream;
 module.exports = function(options) {
 	gulp.task('inject', ['scripts', 'styles'], function () {
 		var injectStyles = gulp.src([
-			options.tmp + '/serve/{sass,components}/**/*.css',
-			'!' + options.tmp + '/serve/sass/vendor.css'
+			options.tmp + '/serve/{styles,components}/**/*.css',
+			'!' + options.tmp + '/serve/styles/vendor.css'
 		], { read: false });
 
 
@@ -26,6 +26,7 @@ module.exports = function(options) {
 		};
 
 		var wiredepOptions = {
+			//ignorePath: /^(\.\.\/)*\.\./
 			directory: 'bower_components'
 		};
 

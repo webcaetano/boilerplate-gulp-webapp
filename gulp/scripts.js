@@ -6,7 +6,7 @@ var browserSync = require('browser-sync');
 var $ = require('gulp-load-plugins')();
 
 module.exports = function(options) {
-	function webpack(watch, callback, reload) {
+	function webpack(watch, callback=null, reload=false) {
 		var webpackOptions = {
 			watch: watch,
 			module: {
@@ -50,3 +50,5 @@ module.exports = function(options) {
 		return webpack(true, callback, true);
 	});
 };
+
+

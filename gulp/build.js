@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var runSequence = require('run-sequence');
 
 var $ = require('gulp-load-plugins')({
 	pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
@@ -9,8 +10,7 @@ var $ = require('gulp-load-plugins')({
 module.exports = function(options) {
 	gulp.task('partials', function () {
 		return gulp.src([
-			options.src + '/{app,components}/**/*.html',
-			options.tmp + '/serve/{app,components}/**/*.html'
+			options.src + '/app/**/*.html'
 		])
 		.pipe($.minifyHtml({
 			empty: true,
@@ -18,12 +18,13 @@ module.exports = function(options) {
 			quotes: true
 		}))
 		.pipe($.angularTemplatecache('templateCacheHtml.js', {
-			module: 'createjs'
+			module: 'heros'
 		}))
 		.pipe(gulp.dest(options.tmp + '/partials/'));
 	});
 
-	gulp.task('html', ['inject', 'partials'], function () {
+
+	gulp.task('html', ['inject', 'node:dist', 'partials'], function () {
 		var partialsInjectFile = gulp.src(options.tmp + '/partials/templateCacheHtml.js', { read: false });
 		var partialsInjectOptions = {
 			starttag: '<!-- inject:partials -->',
@@ -31,33 +32,19 @@ module.exports = function(options) {
 			addRootSlash: false
 		};
 
-		var htmlFilter = $.filter('*.html');
-		var jsFilter = $.filter('**/*.js');
-		var cssFilter = $.filter('**/*.css');
 		var assets;
-
 		return gulp.src(options.tmp + '/serve/*.html')
 			.pipe($.inject(partialsInjectFile, partialsInjectOptions))
 			.pipe(assets = $.useref.assets())
 			.pipe($.rev())
-			.pipe(jsFilter)
-			.pipe($.ngAnnotate())
-			.pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', options.errorHandler('Uglify'))
-			.pipe(jsFilter.restore())
-			.pipe(cssFilter)
-			.pipe($.csso())
-			.pipe(cssFilter.restore())
+			.pipe($.if('*.js', $.ngAnnotate()))
+			.pipe($.if('*.js', $.uglify()))
+			.pipe($.replace('../../bower_components/font-awesome-less/fonts/', '../fonts/'))
+			.pipe($.if('*.css', $.csso()))
 			.pipe(assets.restore())
 			.pipe($.useref())
 			.pipe($.revReplace())
-			.pipe(htmlFilter)
-			.pipe($.minifyHtml({
-				empty: true,
-				spare: true,
-				quotes: true,
-				conditionals: true
-			}))
-			.pipe(htmlFilter.restore())
+			.pipe($.if('*.html', $.minifyHtml({empty: true,	spare: true, quotes: true, conditionals: true})))
 			.pipe(gulp.dest(options.dist + '/'))
 			.pipe($.size({ title: options.dist + '/', showFiles: true }));
 	});
@@ -74,14 +61,23 @@ module.exports = function(options) {
 	gulp.task('other', function () {
 		return gulp.src([
 			options.src + '/**/*',
-			'!' + options.src + '/**/*.{html,css,js,scss}'
+			'!' + options.src + '/**/*.{css,js,less}'
 		])
-			.pipe(gulp.dest(options.dist + '/'));
+		.pipe(gulp.dest(options.dist + '/'));
+	});
+
+	gulp.task('rest', function (done) {
+		$.del([
+			options.dist + '/app',
+			options.dist + '/sass',
+		], done);
 	});
 
 	gulp.task('clean', function (done) {
 		$.del([options.dist + '/', options.tmp + '/'], done);
 	});
 
-	gulp.task('build', ['html', 'fonts', 'other']);
+	gulp.task('build',function(done){
+		runSequence('clean',['html', 'fonts', 'other'],'rest',done);
+	});
 };
