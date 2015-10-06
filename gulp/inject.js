@@ -26,7 +26,7 @@ module.exports = function(options) {
 		};
 
 		var wiredepOptions = {
-			//ignorePath: /^(\.\.\/)*\.\./
+			ignorePath: /^(\.\.\/)+/,
 			directory: 'bower_components'
 		};
 

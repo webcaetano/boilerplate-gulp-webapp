@@ -2,7 +2,6 @@
 
 require('./modules/stats')();
 
-var lodash = require('lodash');
 var utils = require('./modules/utils');
 
 var game;
