@@ -1,6 +1,7 @@
 {
-  "name": "boilerplate-gulp-webapp",
+  "name": "wizz",
   "version": "0.0.0",
+  "private":true,
   "dependencies": {
     "async": "^1.4.2",
     "body-parser": "^1.13.3",

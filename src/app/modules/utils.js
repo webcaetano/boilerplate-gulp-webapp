@@ -22,21 +22,6 @@ self.rand = function(min=0, max=100){
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-self.noAccents = function($){
-	return $.replace(/[àáâãäå]/,"a")
-	.replace(/[èéêë]/,"e")
-	.replace(/[ìíîï]/,"i")
-	.replace(/[óòôõö]/,"o")
-	.replace(/[ùúûü]/,"u")
-	.replace(/[ÀÁÂÃÄÅ]/,"A")
-	.replace(/[ÈÉÊË]/,"E")
-	.replace(/[ÌÍÎÏ]/,"I")
-	.replace(/[ÓÒÔÕÖ]/,"O")
-	.replace(/[ÙÚÛÜ]/,"U")
-	.replace(/[ç]/,"c")
-	.replace(/[Ç]/,"C");
-}
-
 self.toHHMMSS = function ($) {
     var sec_num = parseInt($, 10);
     var hours   = Math.floor(sec_num / 3600);
@@ -48,5 +33,12 @@ self.toHHMMSS = function ($) {
     if (seconds<10) seconds="0"+seconds;
     return hours+':'+minutes+':'+seconds;
 }
+
+self.loadAssets = function(game,assets){
+	var i;
+	for(i in assets.images) game.load.image(i, assets.images[i]);
+	for(i in assets.sprites) game.load.spritesheet(i, assets.sprites[i].image, assets.sprites[i].width, assets.sprites[i].height, assets.sprites[i].frames);
+}
+
 
 module.exports = self;
