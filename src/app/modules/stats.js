@@ -1,3 +1,6 @@
+var Stats = require('stats');
+var _ = require('lodash');
+
 var defaults = {
 
 }

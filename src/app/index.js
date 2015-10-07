@@ -1,8 +1,9 @@
 'use strict';
 
 require('./modules/stats')();
-
 var utils = require('./modules/utils');
+var _ = require('lodash');
+var Phaser = require('phaser');
 
 var game;
 var self = {};
