@@ -4,7 +4,6 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var util = require('util');
 var cp = require('child_process');
-var server;
 
 module.exports = function(options) {
 
@@ -18,15 +17,18 @@ module.exports = function(options) {
 			};
 		}
 
+		var server = {
+			baseDir: baseDir,
+			routes: routes
+		};
+
 		browserSync.instance = browserSync.init({
 			startPath: '/',
+			server: server,
 			browser: browser,
-			open:false,
-			logPrefix: 'RSK',
-			notify: false,
-			https: false,
-			port:3000,
-			proxy: 'localhost:4000'
+			//proxy: 'localhost:8000',
+			// port:4000,
+			open: false
 		});
 	}
 
@@ -35,15 +37,6 @@ module.exports = function(options) {
 	});
 
 	gulp.task('serve:dist', ['build'], function () {
-		var env = Object.create( process.env );
-		env.NODE_ENV = 'dist';
-
-		var child = cp.fork('dist/node/index.js',{env: env});
-		child.once('message', function (message) {
-			if (message.match(/^online$/))browserSyncInit(options.dist);
-		});
-		process.on('exit', function () {
-			return child.kill('SIGTERM');
-		});
+		browserSyncInit(options.dist);
 	});
 };

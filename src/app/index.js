@@ -1,32 +1,28 @@
 'use strict';
 
-angular.module('myApp', ['ngRoute'])
-//<-- Controllers -->
-//<-- Directives -->
-//<-- Service -->
+require('./modules/stats')();
 
-.config(function ($routeProvider,$locationProvider,$interpolateProvider,$httpProvider) {
-	$httpProvider.defaults.withCredentials = true;
+var utils = require('./modules/utils');
 
-	var $when = function(route,obj){
-		if(!angular.isArray(route) || route.length==0){
-			$routeProvider['when'](route,obj);
-		} else  {
-			for(var i=0;i<route.length;i++) $routeProvider['when'](route[i],obj);
-		}
-		return;
+var game;
+var self = {};
+
+var options = {
+	width:500,
+	height:400,
+	where:'wizz-canvas'
+}
+
+game = new Phaser.Game(options.width, options.height, Phaser.AUTO, options.where, options.where);
+game.state.add('game', {
+	preload:function preload(){
+		game.stage.backgroundColor = '#fff';
+	},
+	create:function create(){
+	},
+	update:function update(){
 	}
-
-	$routeProvider.otherwise({
-		redirectTo: '/'
-	});
-
-	// $when('/',{
-	// 	templateUrl: 'views/mid.html'
-	// 	// controller: 'MainCtrl'
-	// });
-
-	$locationProvider.html5Mode(true);
 });
 
 
+game.state.start('game');
