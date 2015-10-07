@@ -13,6 +13,11 @@ module.exports = function(options) {
 				// preLoaders: [{ test: /\.js$/, exclude: /node_modules/, loader: 'jshint-loader'}],
 				loaders: [{ test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}]
 			},
+			externals: {
+				"lodash": "_",
+				"phaser": "Phaser",
+				"stats": "Stats"
+			},
 			output: { filename: 'index.js' }
 		};
 
