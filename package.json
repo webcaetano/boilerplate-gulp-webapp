@@ -1,7 +1,6 @@
 {
-  "name": "wizz",
-  "version": "0.0.1",
-  "private": true,
+  "name": "myapp",
+  "version": "0.0.0",
   "dependencies": {
     "async": "^1.4.2",
     "body-parser": "^1.13.3",

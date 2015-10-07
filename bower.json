@@ -1,7 +1,6 @@
 {
-  "name": "wizz",
+  "name": "myapp",
   "version": "0.0.0",
-  "private": true,
   "dependencies": {
     "font-awesome": "~4.4.0",
     "lodash": "~3.10.1",
