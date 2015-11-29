@@ -4,8 +4,5 @@ ES6 in Server and Client Side. (Everywhere)
 
 Branchs : 
 
-Simple node_module in ES6: 
-https://github.com/webcaetano/boilerplate-gulp-webapp/tree/simple-node
-
-PhaserJS (local ES6):
-https://github.com/webcaetano/boilerplate-gulp-webapp/tree/phaser-local
+* [Node Module](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/simple-node)
+* [PhaserJS](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/phaser-local)
