@@ -10,7 +10,7 @@ function isOnlyChange(event) {
 
 module.exports = function(options) {
 	gulp.task('watch', function (done) {
-		runSequence('inject',['scripts:watch','node:watch'],function(){
+		runSequence('inject',['scripts:watch'],function(){
 			gulp.watch([options.src + '/*.html', options.src + '/*.html', 'bower.json'], function(event) {
 				gulp.start('inject',function(){
 					browserSync.reload();

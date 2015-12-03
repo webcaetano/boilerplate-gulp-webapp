@@ -18,15 +18,18 @@ module.exports = function(options) {
 			};
 		}
 
+		var server = {
+			baseDir: baseDir,
+			routes: routes
+		};
+
 		browserSync.instance = browserSync.init({
 			startPath: '/',
+			server: server,
 			browser: browser,
-			open:false,
-			logPrefix: 'RSK',
-			notify: false,
-			https: false,
-			port:3000,
-			proxy: 'localhost:4000'
+			//proxy: 'localhost:8000',
+			// port:4000,
+			open: false
 		});
 	}
 
