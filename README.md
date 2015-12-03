@@ -1,4 +1,4 @@
-![](http://i.imgur.com/vS2e8cF.png)
+![](http://i.imgur.com/PLSxWPs.png)
 
 My personal Boilerplates
 ES6 in Server and Client Side. (Everywhere)
