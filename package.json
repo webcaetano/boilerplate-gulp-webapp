@@ -1,7 +1,19 @@
 {
   "name": "boilerplate-gulp-webapp",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "async": "^1.4.2",
+    "body-parser": "^1.13.3",
+    "cli-color": "^1.0.0",
+    "compression": "^1.5.2",
+    "connect-mongo": "^0.8.2",
+    "express": "^4.13.3",
+    "express-session": "^1.11.3",
+    "lodash": "^3.10.1",
+    "mq-node": "^1.0.11",
+    "pkginfo": "^0.3.0",
+    "serve-favicon": "^2.3.0"
+  },
   "scripts": {
     "test": "gulp test"
   },
