@@ -35,15 +35,6 @@ module.exports = function(options) {
 	});
 
 	gulp.task('serve:dist', ['build'], function () {
-		var env = Object.create( process.env );
-		env.NODE_ENV = 'dist';
-
-		var child = cp.fork('dist/node/index.js',{env: env});
-		child.once('message', function (message) {
-			if (message.match(/^online$/))browserSyncInit(options.dist);
-		});
-		process.on('exit', function () {
-			return child.kill('SIGTERM');
-		});
+		browserSyncInit(options.dist);
 	});
 };
