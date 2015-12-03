@@ -86,8 +86,8 @@ gulp.task('nodemon', function (cb) {
 
 
 module.exports = function(options) {
-	function webpack(path, watch=false, callback=null, reload=false, notServer=false) {
-
+	function webpack(path, watch=false, callback, reload, notServer) {
+		if(!watch) watch=false;
 		var webpackChangeHandler = function(err, stats) {
 			if(err) {
 				options.errorHandler('Webpack')(err);
