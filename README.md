@@ -5,29 +5,29 @@ ES6 in Server and Client Side. (Everywhere)
 Branchs : 
 
 ### Master 
-✔ Gulp
-✔ Client Side ES6
-✔ Angular
-✔ Server Side ES6 
+- ✔ Gulp
+- ✔ Client Side ES6
+- ✔ Angular
+- ✔ Server Side ES6 
 
 ### Only Client-Side
-✔ Gulp
-✔ Client Side ES6
-✔ Angular
+- ✔ Gulp
+- ✔ Client Side ES6
+- ✔ Angular
 
 [branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/client)
 
 ### Node Module
-✔ Gulp
-✔ Server Side ES6
-✔ Chai + Mocha + Gulp Test
+- ✔ Gulp
+- ✔ Server Side ES6
+- ✔ Chai + Mocha + Gulp Test
 
 [branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/simple-node)
 
 ### Only Client-Side
-✔ Gulp
-✔ Client Side ES6
-✔ Phaser.io
+- ✔ Gulp
+- ✔ Client Side ES6
+- ✔ Phaser.io
 
 [branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/phaser-local)
 
