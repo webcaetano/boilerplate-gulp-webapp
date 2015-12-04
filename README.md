@@ -43,5 +43,5 @@ Branchs :
 ------
 Up comming 
 - Simple Node module (without gulp)
-- _Gulp Plugin_
+- ~~Gulp Plugin~~
 - [Jinx](https://github.com/webcaetano/jinx)
