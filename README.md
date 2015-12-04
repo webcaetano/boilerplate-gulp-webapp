@@ -1,1 +1,1 @@
-Gulp + PhaserJS Boilerplate
+Gulp plugin boiler plate
