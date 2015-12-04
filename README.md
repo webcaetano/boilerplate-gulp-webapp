@@ -34,8 +34,14 @@ Branchs :
 [branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/phaser-local)
 
 
+### Gulp Plugin
+
+- ✔ Mocha + Chai
+
+[branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/gulp)
+
 ------
 Up comming 
 - Simple Node module (without gulp)
-- Gulp Plugin
+- _Gulp Plugin_
 - [Jinx](https://github.com/webcaetano/jinx)
