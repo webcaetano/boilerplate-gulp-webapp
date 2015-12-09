@@ -26,7 +26,7 @@ Branchs :
 
 [branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/simple-node)
 
-### Only Client-Side
+### Phaser.io Client-Side
 - ✔ Gulp
 - ✔ Client Side ES6
 - ✔ Phaser.io
