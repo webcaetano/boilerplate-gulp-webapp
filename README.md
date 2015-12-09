@@ -55,5 +55,6 @@ Up comming
 
 ```
 // chose a branch E.g.: phaser-local
-git clone -b phaser-local --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git // it clone just the target branch
+git clone -b phaser-local --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git 
+// it clone just the target branch
 ```
