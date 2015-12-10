@@ -32,15 +32,6 @@ Branchs :
 
 `git clone -b client --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git`
 
-### Node Module
-- ✔ Gulp
-- ✔ Server Side ES6
-- ✔ Chai + Mocha + Gulp Test
-
-[branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/simple-node)
-
-`git clone -b simple-node --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git`
-
 ### Phaser.io Client-Side
 - ✔ Gulp
 - ✔ Client Side ES6
@@ -58,9 +49,26 @@ Branchs :
 
 `git clone -b gulp --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git`
 
+### Node Module ES6
+- ✔ Gulp
+- ✔ Server Side ES6
+- ✔ Chai + Mocha + Gulp Test
+
+[branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/node-es6)
+
+`git clone -b node-es6 --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git`
+
+### Node Module ES5
+
+- ✔ Chai + Mocha
+
+[branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/node)
+
+`git clone -b node --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git`
+
 ------
 Up comming 
-- Simple Node module (without gulp)
+- ~~Simple Node module (without gulp)~~
 - ~~Gulp Plugin~~
 - [Jinx](https://github.com/webcaetano/jinx)
 
