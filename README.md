@@ -11,35 +11,44 @@ Branchs :
 - ✔ Angular
 - ✔ Server Side ES6 
 
-[branch](https://github.com/webcaetano/boilerplate-gulp-webapp) : `master`
+[branch](https://github.com/webcaetano/boilerplate-gulp-webapp)
+
+`git clone git@github.com:webcaetano/boilerplate-gulp-webapp.git`
 
 ### Only Client-Side
 - ✔ Gulp
 - ✔ Client Side ES6
 - ✔ Angular
 
-[branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/client) : `client`
+[branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/client)
+
+`git clone -b client --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git`
 
 ### Node Module
 - ✔ Gulp
 - ✔ Server Side ES6
 - ✔ Chai + Mocha + Gulp Test
 
-[branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/simple-node) : `simple-node`
+[branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/simple-node)
+
+`git clone -b simple-node --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git`
 
 ### Phaser.io Client-Side
 - ✔ Gulp
 - ✔ Client Side ES6
 - ✔ Phaser.io
 
-[branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/phaser-local) : `phaser-local`
+[branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/phaser-local)
 
+`git clone -b phaser-local --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git`
 
 ### Gulp Plugin
 
 - ✔ Mocha + Chai
 
-[branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/gulp) : `gulp`
+[branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/gulp)
+
+`git clone -b gulp --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git`
 
 ------
 Up comming 
@@ -47,14 +56,3 @@ Up comming
 - ~~Gulp Plugin~~
 - [Jinx](https://github.com/webcaetano/jinx)
 
-
-
-### Tip 
-
-**Clone by target Branch**
-
-```
-// chose a branch E.g.: phaser-local
-git clone -b phaser-local --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git 
-// it clone just the target branch
-```
