@@ -7,7 +7,7 @@ List :
 - [Master](https://github.com/webcaetano/boilerplate-gulp-webapp/blob/master/README.md#master)
 - [Only Client Side](https://github.com/webcaetano/boilerplate-gulp-webapp/blob/master/README.md#only-client-side)
 - [Node Module](https://github.com/webcaetano/boilerplate-gulp-webapp/blob/master/README.md#node-module)
-- [Phaserio Client Side](https://github.com/webcaetano/boilerplate-gulp-webapp/blob/master/README.md#phaserio-client-side)
+- [Phaser-boilerplate](https://github.com/webcaetano/phaser-boilerplate)
 - [Gulp Plugin](https://github.com/webcaetano/boilerplate-gulp-webapp/blob/master/README.md#gulp-plugin)
 
 
@@ -31,15 +31,6 @@ Branchs :
 [branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/client)
 
 `git clone -b client --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git`
-
-### Phaser.io Client-Side
-- ✔ Gulp
-- ✔ Client Side ES6
-- ✔ Phaser.io
-
-[branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/phaser-local)
-
-`git clone -b phaser-local --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git`
 
 ### Gulp Plugin
 
@@ -65,6 +56,10 @@ Branchs :
 [branch](https://github.com/webcaetano/boilerplate-gulp-webapp/tree/node)
 
 `git clone -b node --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git`
+
+### Phaser.io Client-Side
+
+Moved to [phaser-boilerplate](https://github.com/webcaetano/phaser-boilerplate)
 
 ------
 Up comming 
