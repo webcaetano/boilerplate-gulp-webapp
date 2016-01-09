@@ -4,7 +4,7 @@ var self = require('./');
 
 describe('node-module', function() {
 
-	it('should do somethign', function(done) {
+	it('should do something', function(done) {
 
 	});
 });
