@@ -1,7 +1,5 @@
-![](http://i.imgur.com/PLSxWPs.png)
-
-My personal Boilerplates
-ES6 in Server and Client Side. (Everywhere)
+<p align="center"><img alt="logo" src="http://i.imgur.com/PLSxWPs.png"></p>
+<p align="center"><strong><sub><a href="https://github.com/webcaetano">@webcaetano</a> Boilerplates</sub></strong></p>
 
 List : 
 - [Master](https://github.com/webcaetano/boilerplate-gulp-webapp/blob/master/README.md#master)
