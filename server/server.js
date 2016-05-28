@@ -14,7 +14,7 @@ module.exports = function(express,master){
 
 	if(process.env.NODE_ENV=='dev'){
 		app.use('/bower_components',  express.static(path.join(__dirname, '../bower_components')));
-		app.use('/app',  express.static(path.join(__dirname, '../.tmp/serve/app')));
+		app.use('/scripts',  express.static(path.join(__dirname, '../.tmp/serve/scripts')));
 		app.use('/styles',  express.static(path.join(__dirname, '../.tmp/serve/styles')));
 		app.use('/views',  express.static(path.join(__dirname, '../src/views')));
 		app.use('/images',  express.static(path.join(__dirname, '../src/images')));
