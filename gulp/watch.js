@@ -23,6 +23,39 @@ module.exports = function(options) {
 			});
 		});
 
+
+		gulp.watch([
+			'./server/**/*.js',
+		],gulp.series('backEnd',function(done) {
+			browserSync.reload();
+			done();
+		}));
+
+
+		console.log()
 		done();
 	}));
 };
+
+
+
+// if(started) server.kill('SIGTERM');
+// var env = Object.create( process.env );
+// env.NODE_ENV = 'dev';
+
+// var child = cp.fork('.tmp/serve/server/index.js',{env:env});
+// if(watch) watch = false;
+// child.once('message', function (message) {
+// 	if (message.match(/^online$/)){
+// 		if(browserSync && reload) browserSync.reload();
+// 		if(!started) {
+// 			started = true;
+// 			if(callback) callback();
+// 		}
+// 	}
+// });
+// server = child;
+
+// process.on('exit', function () {
+// 	return server.kill('SIGTERM');
+// });

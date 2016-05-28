@@ -4,34 +4,39 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var util = require('util');
 var cp = require('child_process');
+var _ = require('lodash');
 var server;
+var started = false;
 
 module.exports = function(options) {
 
 	function browserSyncInit(config) {
 		var routes = null;
-		browserSync.instance = browserSync.init(config);
+		browserSync.instance = browserSync.init(_.extend({},{
+			startPath: '/',
+			browser: 'default',
+			open:false,
+			logPrefix: 'RSK',
+			notify: false,
+			https: false,
+			port:3000,
+			proxy: 'localhost:4000'
+		},config));
 	}
 
+	// gulp.task('backEnd',function(){
 
-	gulp.task('serve', gulp.series('watch', function serve(done) {
-		// conslle.log('xxxx')
+	// })
+	var backEnd = function(callback,options){
+		if(started) server.kill('SIGTERM');
 		var env = Object.create( process.env );
 		env.NODE_ENV = 'dev';
 
 		var child = cp.fork('./server/index.js',{env:env});
 		child.once('message', function (message) {
 			if (message.match(/^online$/)){
-				browserSyncInit({
-					startPath: '/',
-					browser: 'default',
-					open:false,
-					logPrefix: 'RSK',
-					notify: false,
-					https: false,
-					port:3000,
-					proxy: 'localhost:4000'
-				},done);
+				callback();
+				started = true;
 			}
 		});
 		server = child;
@@ -39,6 +44,15 @@ module.exports = function(options) {
 		process.on('exit', function () {
 			return server.kill('SIGTERM');
 		});
+	}
+
+	gulp.task('backEnd',function(done){
+		backEnd(done);
+	})
+
+	gulp.task('serve', gulp.series('watch', 'backEnd', function serve(done) {
+		browserSyncInit();
+		done();
 	}));
 
 	// gulp.task('serve:dist', ['build'], function () {

@@ -3,11 +3,9 @@ var path = require('path');
 
 module.exports = function(express,master){
 	var session = require('express-session');
-	// var MongoStore  = require('connect-mongo')(session);
 	var favicon = require('serve-favicon');
 	var bodyParser = require('body-parser');
 	var compress = require('compression');
-	// var cors = require('cors');
 	var app = express();
 
 	app.set('port', process.env.PORT || 4000);
@@ -28,20 +26,10 @@ module.exports = function(express,master){
 		app.use('/images',  express.static(path.join(__dirname, '../images')));
 	}
 
-	// app.use(cors());
 	app.set('views', path.join(__dirname, '../'));
 	app.use(compress());
 	app.use(bodyParser.json({limit: '10mb'}));
 	app.use(bodyParser.urlencoded({ extended: true, keepExtensions: true, defer: true , limit: '10mb' }));
-
-	// app.use(session({
-	// 	secret:'monkey',
-	// 	resave:false,
-	// 	saveUninitialized:false,
-	// 	store: new MongoStore({
-	// 		db: 'sessionstore'
-	// 	})
-	// }));
 
 	app.start = function(){
 		app.listen(app.get('port'),function(){
