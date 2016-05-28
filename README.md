@@ -5,7 +5,6 @@ List :
 - [Master](https://github.com/webcaetano/boilerplate-gulp-webapp/blob/master/README.md#master)
 - [Only Client Side](https://github.com/webcaetano/boilerplate-gulp-webapp/blob/master/README.md#only-client-side)
 - [Node Module](https://github.com/webcaetano/boilerplate-gulp-webapp/blob/master/README.md#node-module)
-- [Phaser-boilerplate](https://github.com/webcaetano/phaser-boilerplate)
 - [Gulp Plugin](https://github.com/webcaetano/boilerplate-gulp-webapp/blob/master/README.md#gulp-plugin)
 
 
@@ -55,13 +54,14 @@ Branchs :
 
 `git clone -b node --single-branch git@github.com:webcaetano/boilerplate-gulp-webapp.git`
 
-### Phaser.io Client-Side
+## Changelog
 
-Moved to [phaser-boilerplate](https://github.com/webcaetano/phaser-boilerplate)
+#### 2.0.0
 
-------
-Up comming 
-- ~~Simple Node module (without gulp)~~
-- ~~Gulp Plugin~~
-- [Jinx](https://github.com/webcaetano/jinx)
+- Node 6
+- Gulp 4
+- Remove AngularJS
 
+## See Also
+
+- phaser-boilerplate [phaser-boilerplate](https://github.com/webcaetano/phaser-boilerplate)

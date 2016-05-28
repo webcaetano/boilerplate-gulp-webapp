@@ -3,7 +3,6 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var _ = require('lodash');
-var wrench = require('wrench');
 
 var options = {
 	src: 'src',
@@ -17,12 +16,16 @@ var options = {
 	}
 };
 
-wrench.readdirSyncRecursive('./gulp').filter(function(file) {
-	return (/\.(js|coffee)$/i).test(file);
-}).map(function(file) {
+_.each([
+	'scripts.js',
+	'styles.js',
+	'inject.js',
+	'build.js',
+	'github.js',
+	'watch.js',
+	'server.js',
+],function(file){
 	require('./gulp/' + file)(options);
-});
+})
 
-gulp.task('default', ['clean'], function () {
-	gulp.start('serve');
-});
+gulp.task('default', gulp.series('clean','serve'));

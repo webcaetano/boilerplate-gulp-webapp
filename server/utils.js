@@ -20,7 +20,7 @@ self.dBug = function(m,t){
 }
 
 self.root = function(){
-	return path.join(__dirname, process.env.NODE_ENV=='dev' ? '../../../src' : '../');
+	return path.join(__dirname, process.env.NODE_ENV=='dev' ? '../src' : '../');
 }
 
 self.getJsonURL = function(file){
@@ -31,57 +31,8 @@ self.getPackage = function(file){
 	return self.getJsonURL('../package.json');
 }
 
-self.dynamicSort = function(property) {
-	var sortOrder = 1;
-	if(property[0] === "-") {
-		sortOrder = -1;
-		property = property.substr(1);
-	}
-	return function (a,b) {
-		var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-		return result * sortOrder;
-	}
-}
-
-self.intval = function(mixed_var, base=10) {
-	var tmp;
-	var type = typeof mixed_var;
-
-	if (type === 'boolean') {
-		return +mixed_var;
-	} else if (type === 'string') {
-		tmp = parseInt(mixed_var, base);
-		return (isNaN(tmp) || !isFinite(tmp)) ? 0 : tmp;
-	} else if (type === 'number' && isFinite(mixed_var)) {
-		return mixed_var | 0;
-	} else {
-		return 0;
-	}
-}
-
-self.inArray = function(needle, haystack, argStrict){
-	var key = '';
-	var strict = !! argStrict;
-
-	if (strict){
-		for (key in haystack) if (haystack[key] === needle) return true;
-	} else {
-		for (key in haystack) if (haystack[key] == needle) return true;
-	}
-	return false;
-}
-
-self.extend = function(obj) {
-	for (var i = 1; i < arguments.length; i++) for (var key in arguments[i]) obj[key] = arguments[i][key];
-	return obj;
-}
-
 self.time = function(){
 	return Math.floor(new Date().getTime() / 1000);
-}
-
-self.rand = function(min=0, max=100){
-	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 self.noCache = function(res){

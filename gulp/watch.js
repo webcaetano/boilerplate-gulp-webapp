@@ -2,38 +2,27 @@
 
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
-var runSequence = require('run-sequence');
-
-function isOnlyChange(event) {
-	return event.type === 'changed';
-}
 
 module.exports = function(options) {
-	gulp.task('watch', function (done) {
-		runSequence('inject',['scripts:watch','node:watch'],function(){
-			gulp.watch([options.src + '/*.html', options.src + '/*.html', 'bower.json'], function(event) {
-				gulp.start('inject',function(){
-					browserSync.reload();
-				});
-			});
-
-			gulp.watch([
-				options.src + '/{styles,components}/**/*.less'
-			], function(event) {
-				if(isOnlyChange(event)) {
-					gulp.start('styles',function(){
-						browserSync.reload();
-					});
-				} else {
-					gulp.start('inject');
-				}
-			});
-
-			gulp.watch(options.src + '/{app,views,components}/**/*.html', function(event) {
-				browserSync.reload(event.path);
-			});
+	gulp.task('watch',gulp.series('inject','scripts:watch', function watch(done) {
+		gulp.watch([
+			options.src + '/*.html',
+			'./bower.json',
+			options.src+'/app/**/*.{data.js}'
+		], gulp.series('inject', function(done) {
+			browserSync.reload();
 			done();
-		});
-	});
+		}));
 
+		gulp.watch([
+			options.src + '/{styles,components}/**/*.less'
+		],function(event) {
+			console.log(event)
+			return gulp.series(event.type === 'changed' ? 'styles' : 'inject',function(){
+				browserSync.reload();
+			});
+		});
+
+		done();
+	}));
 };

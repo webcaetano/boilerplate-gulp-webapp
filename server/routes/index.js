@@ -8,6 +8,6 @@ module.exports = function(app,scope){
 
 	// setup views
 	app.get(views,function(req,res){
-		res.sendFile(path.join(__dirname, '../index.html'));
+		res.sendFile(path.join(__dirname, '../../.tmp/serve/index.html'));
 	});
 }

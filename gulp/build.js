@@ -1,83 +1,85 @@
 'use strict';
 
 var gulp = require('gulp');
-var runSequence = require('run-sequence');
+var imagemin = require('gulp-imagemin');
+var pngquant = require('imagemin-pngquant');
+var exec = require('sync-exec');
+var surge = require('gulp-surge');
 
 var $ = require('gulp-load-plugins')({
-	pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
+	pattern: ['gulp-*', 'del']
 });
 
 module.exports = function(options) {
-	gulp.task('partials', function () {
-		return gulp.src([
-			options.src + '/app/**/*.html'
-		])
-		.pipe($.minifyHtml({
-			empty: true,
-			spare: true,
-			quotes: true
-		}))
-		.pipe($.angularTemplatecache('templateCacheHtml.js', {
-			module: 'heros'
-		}))
-		.pipe(gulp.dest(options.tmp + '/partials/'));
-	});
-
-
-	gulp.task('html', ['inject', 'node:dist', 'partials'], function () {
-		var partialsInjectFile = gulp.src(options.tmp + '/partials/templateCacheHtml.js', { read: false });
-		var partialsInjectOptions = {
-			starttag: '<!-- inject:partials -->',
-			ignorePath: options.tmp + '/partials',
-			addRootSlash: false
-		};
-
+	gulp.task('html', gulp.series('inject', function html() {
 		var assets;
 		return gulp.src(options.tmp + '/serve/*.html')
-			.pipe($.inject(partialsInjectFile, partialsInjectOptions))
-			.pipe(assets = $.useref.assets())
 			.pipe($.rev())
-			.pipe($.if('*.js', $.ngAnnotate()))
+			.pipe($.if('*.js', $.preprocess({context: {dist: true}})))
 			.pipe($.if('*.js', $.uglify()))
 			.pipe($.replace('../../bower_components/font-awesome-less/fonts/', '../fonts/'))
 			.pipe($.if('*.css', $.csso()))
-			.pipe(assets.restore())
 			.pipe($.useref())
 			.pipe($.revReplace())
+			.pipe($.if('*.html', $.preprocess({context: {dist: true}})))
 			.pipe($.if('*.html', $.minifyHtml({empty: true,	spare: true, quotes: true, conditionals: true})))
 			.pipe(gulp.dest(options.dist + '/'))
 			.pipe($.size({ title: options.dist + '/', showFiles: true }));
-	});
+	}));
 
-	// Only applies for fonts from bower dependencies
-	// Custom fonts are handled by the "other" task
-	gulp.task('fonts', function () {
-		return gulp.src($.mainBowerFiles())
-			.pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
-			.pipe($.flatten())
-			.pipe(gulp.dest(options.dist + '/fonts/'));
-	});
+	gulp.task('images:dist',function(){
+		return gulp.src([
+			options.src + '/images/**/*'
+		],{ base: './src' })
+		.pipe(imagemin({
+			use: [pngquant({quality: '75-90'})]
+		}))
+		.pipe(gulp.dest(options.dist + '/'));
+	})
 
 	gulp.task('other', function () {
 		return gulp.src([
-			options.src + '/**/*',
-			'!' + options.src + '/**/*.{css,js,less}'
-		])
+			options.src + '/favicon.ico',
+			options.src + '/404.html',
+			options.src + '/audio/**/*'
+		],{ base: './src' })
 		.pipe(gulp.dest(options.dist + '/'));
 	});
 
-	gulp.task('rest', function (done) {
-		$.del([
+	gulp.task('rest', function () {
+		return $.del([
 			options.dist + '/app',
-			options.dist + '/sass',
-		], done);
+		]);
 	});
 
-	gulp.task('clean', function (done) {
-		$.del([options.dist + '/', options.tmp + '/'], done);
+	gulp.task('clean', function () {
+		return $.del([options.dist + '/', options.tmp + '/']);
 	});
 
-	gulp.task('build',function(done){
-		runSequence('clean',['html', 'fonts', 'other'],'rest',done);
-	});
+
+	gulp.task('prepare',gulp.series('clean','images:dist','other'));
+
+	gulp.task('build',gulp.series('clean','prepare','html','rest'));
+
+	// gulp.task('deploy',function(done){
+	// 	var c = [
+	// 		'cd dist',
+	// 		'git init',
+	// 		'git add .',
+	// 		'git commit -m "Deploy to Github Pages"',
+	// 		'git push --force git@github.com:webcaetano/phaser-boilerplate.git master:gh-pages' // change adress to you repo
+	// 	].join(" && ")
+	// 	done();
+	// })
+
+	// // gulp.task('deploy:build',gulp.series('build','d'));
+
+	// gulp.task('surge', function () {
+	// 	return surge({
+	// 		project: './dist',         // Path to your static build directory
+	// 		domain: 'phaser-boilerplate.surge.sh'  // Your domain or Surge subdomain
+	// 	})
+	// });
+
+	// gulp.task('surge:build',gulp.series('build','surge'));
 };

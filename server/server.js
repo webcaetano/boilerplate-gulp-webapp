@@ -15,14 +15,12 @@ module.exports = function(express,master){
 	utils.dBug(process.env.NODE_ENV, 'info');
 
 	if(process.env.NODE_ENV=='dev'){
-		app.use('/bower_components',  express.static(path.join(__dirname, '../../../bower_components')));
-		app.use('/app',  express.static(path.join(__dirname, '../app')));
-		app.use('/directives',  express.static(path.join(__dirname, '../../../src/app/directives')));
-		app.use('/lib',  express.static(path.join(__dirname, '../../../src/lib')));
-		app.use('/styles',  express.static(path.join(__dirname, '../styles')));
-		app.use('/views',  express.static(path.join(__dirname, '../../../src/views')));
-		app.use('/images',  express.static(path.join(__dirname, '../../../src/images')));
-		app.use(favicon(path.join(__dirname, '../../../src/favicon.ico')));
+		app.use('/bower_components',  express.static(path.join(__dirname, '../bower_components')));
+		app.use('/app',  express.static(path.join(__dirname, '../.tmp/serve/app')));
+		app.use('/styles',  express.static(path.join(__dirname, '../.tmp/serve/styles')));
+		app.use('/views',  express.static(path.join(__dirname, '../src/views')));
+		app.use('/images',  express.static(path.join(__dirname, '../src/images')));
+		app.use(favicon(path.join(__dirname, '../src/favicon.ico')));
 	} else {
 		app.use('/styles',  express.static(path.join(__dirname, '../styles')));
 		app.use('/views',  express.static(path.join(__dirname, '../views')));

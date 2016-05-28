@@ -4,36 +4,24 @@ var fs = require('fs');
 var path = require('path');
 var gulp = require('gulp');
 var git = require('gulp-git');
-var bump = require('gulp-bump');
 var tag_version = require('gulp-tag-version');
-var mysqlDump = require('mysqldump');
-var runSequence = require('run-sequence');
 var argv = require('yargs').argv;
 
+var $ = require('gulp-load-plugins')();
 
 module.exports = function(options) {
 	var packageSrc = './package.json';
 
-	// gulp.task('mysql-backup', function (done) {
-	// 	mysqlDump({
-	// 		host: 'localhost',
-	// 		user: 'root',
-	// 		password: '',
-	// 		database: 'test',
-	// 		data:false,
-	// 		autoIncrement:false,
-	// 		ifNotExist:true, // Create table if not exist
-	// 		dest:'./mysql/schema.sql' // destination file
-	// 	},function(){
-	// 		done();
-	// 	});
-	// });
-
-	gulp.task('release',function(done){
-		return runSequence('git:bump', 'git:commit_release','git:tag','git:push',function(){
-			process.exit();
-		});
-	})
+	var bump = function(type='patch'){
+		return function bump(){
+			return gulp.src(['./bower.json',packageSrc])
+			.pipe($.bump({
+				// version: options.version,
+				type: type
+			}))
+			.pipe(gulp.dest('./'));
+		}
+	}
 
 	gulp.task('git:tag', function () {
 		return gulp.src(packageSrc)
@@ -49,37 +37,31 @@ module.exports = function(options) {
 			if(err) console.error(err);
 			done();
 		});
-	})
+	});
 
-	// gulp.task('git:add',['mysql-backup'], function () { //hook mysql scheme to trigger at git add
 	gulp.task('git:add', function () {
 		return gulp.src(packageSrc)
 			.pipe(git.add({args: " -A"}));
 	});
 
-	gulp.task('git:commit_release', ['git:add'], function () {
+	gulp.task('git:commit_release', gulp.series('git:add', function commit_release () {
 		var pkg = JSON.parse(fs.readFileSync(path.join(__dirname,'../package.json')));
 		return gulp.src('./')
-			.pipe(git.commit('[Release] Version '+pkg.version));
-	});
+			.pipe(git.commit('v '+pkg.version));
+	}));
 
-	gulp.task('git:commit', ['git:add'], function () {
+	gulp.task('git:commit', gulp.series('git:add', function commit () {
 		return gulp.src('./')
-			.pipe(git.commit((argv.m && argv!==true  ?  argv.m : 'Minor changes :coffee:')));
-	});
+		.pipe(git.commit((argv.m && argv!==true  ?  argv.m : 'Minor changes :coffee:')));
+	}));
 
-	gulp.task('p', function(){
-		runSequence('git:commit','git:push',function(){
-			process.exit();
-		});
-	});
+	gulp.task('p', gulp.series('git:commit','git:push', function p(){
+		process.exit();
+	}));
 
-	gulp.task('git:bump', function () {
-		return gulp.src(packageSrc)
-		.pipe(bump({
-			version: options.version,
-			type: (argv.major ? 'major' : (argv.minor ? 'minor' : 'patch'))
-		}))
-		.pipe(gulp.dest('./'));
-	});
+	gulp.task('bump', gulp.series(bump(argv.major ? 'major' : (argv.minor ? 'minor' : 'patch'))));
+
+	gulp.task('patch', gulp.series(bump('patch'),'git:commit_release','git:tag','git:push'));
+	gulp.task('minor', gulp.series(bump('minor'),'git:commit_release','git:tag','git:push'));
+	gulp.task('major', gulp.series(bump('major'),'git:commit_release','git:tag','git:push'));
 }
