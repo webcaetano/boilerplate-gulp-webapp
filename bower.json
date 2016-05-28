@@ -6,5 +6,9 @@
     "font-awesome": "~4.6.3",
     "jquery": "~2.2.4",
     "lodash": "~4.13.1"
+  },
+  "externals": {
+    "lodash": "_",
+    "jquery": "$"
   }
 }

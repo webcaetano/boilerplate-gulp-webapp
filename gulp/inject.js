@@ -24,7 +24,7 @@ module.exports = function(options) {
 		};
 
 		var wiredepOptions = {
-			directory: 'bower_components'
+			directory: 'bower_components',
 		};
 
 		return gulp.src(options.src + '/*.html')
